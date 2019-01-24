@@ -1,8 +1,8 @@
 package com.agapovp.epam.spring.core;
 
-public class ConsoleEventLogger {
+public class ConsoleEventLogger implements EventLogger {
 
-    void logEvent(String message) {
+    public void logEvent(String message) {
         System.out.println(message);
     }
 }
