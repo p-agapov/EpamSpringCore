@@ -9,11 +9,23 @@
         <constructor-arg value="John Smith"/>
     </bean>
 
-    <bean id="eventLogger" class="com.agapovp.epam.spring.core.ConsoleEventLogger"/>
+    <bean id="consoleEventLogger" class="com.agapovp.epam.spring.core.ConsoleEventLogger"/>
+
+    <bean id="fileEventLogger" class="com.agapovp.epam.spring.core.FileEventLogger"
+          init-method="init">
+        <constructor-arg value="src\main\resources\app.log"/>
+    </bean>
+
+    <bean id="cacheFileEventLogger" class="com.agapovp.epam.spring.core.CacheFileEventLogger"
+          init-method="init"
+          destroy-method="destroy">
+        <constructor-arg value="src\main\resources\app.log"/>
+        <constructor-arg value="3"/>
+    </bean>
 
     <bean id="app" class="com.agapovp.epam.spring.core.App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="eventLogger"/>
+        <constructor-arg ref="cacheFileEventLogger"/>
     </bean>
 
     <bean id="event" class="com.agapovp.epam.spring.core.Event" scope="prototype">
