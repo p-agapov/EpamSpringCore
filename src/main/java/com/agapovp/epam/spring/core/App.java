@@ -14,15 +14,21 @@ public class App {
     EventLogger eventLogger;
 
     public static void main(String[] args) {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        App app = (App) ctx.getBean("app");
+
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        App app = (App) context.getBean("app");
 
         app.logEvent("Some event for user 1");
         app.logEvent("Some event for user 2");
     }
 
     private void logEvent(String msg) {
+
+        ApplicationContext context =new ClassPathXmlApplicationContext("spring.xml");
+        Event event = (Event) context.getBean("event");
+
         String message = msg.replaceAll(client.getId(), client.getFullName());
-        eventLogger.logEvent(message);
+        event.setMessage(message);
+        eventLogger.logEvent(event);
     }
 }
