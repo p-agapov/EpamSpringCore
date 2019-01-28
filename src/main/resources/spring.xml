@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
 
     <import resource="loggers.xml"/>
 
-    <bean id="client" class="com.agapovp.epam.spring.core.Client">
-        <constructor-arg value="1" />
-        <constructor-arg value="John Smith"/>
-        <property name="greeting" value="Hello there!"/>
+    <util:map id="loggerMap">
+        <entry key="INFO" value-ref="consoleEventLogger"/>
+        <entry key="ERROR" value-ref="combinedEventLogger"/>
+    </util:map>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:client.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="systemPropertiesMode" value="2"/>
     </bean>
 
-    <bean id="app" class="com.agapovp.epam.spring.core.App">
-        <constructor-arg ref="client"/>
-        <constructor-arg ref="cacheFileEventLogger"/>
-        <constructor-arg>
-            <map>
-                <entry key="INFO" value-ref="consoleEventLogger"/>
-                <entry key="ERROR" value-ref="combinedEventLogger"/>
-            </map>
-        </constructor-arg>
-    </bean>
+    <bean id="client" class="com.agapovp.epam.spring.core.Client"
+          c:id="${id}"
+          c:fullName="${name}"
+          p:greeting="${greeting}"
+    />
+
+
+    <bean id="app" class="com.agapovp.epam.spring.core.App"
+          c:client-ref="client"
+          c:eventLogger-ref="cacheFileEventLogger"
+          c:loggers-ref="loggerMap"
+    />
 
     <bean id="event" class="com.agapovp.epam.spring.core.Event" scope="prototype">
         <constructor-arg>

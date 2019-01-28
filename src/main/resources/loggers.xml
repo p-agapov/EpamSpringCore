@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:c="http://www.springframework.org/schema/c"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="consoleEventLogger" class="com.agapovp.epam.spring.core.ConsoleEventLogger"/>
 
     <bean id="fileEventLogger" class="com.agapovp.epam.spring.core.FileEventLogger"
-          init-method="init">
-        <constructor-arg value="src\main\resources\app.log"/>
-    </bean>
+          init-method="init"
+          c:fileName="src\main\resources\app.log"
+    />
+
 
     <bean id="cacheFileEventLogger" class="com.agapovp.epam.spring.core.CacheFileEventLogger"
           parent="fileEventLogger"
-          destroy-method="destroy">
-        <constructor-arg value="3"/>
-    </bean>
+          destroy-method="destroy"
+          c:cacheSize="3"
+    />
 
     <bean id="combinedEventLogger" class="com.agapovp.epam.spring.core.CombinedEventLogger">
         <constructor-arg>
