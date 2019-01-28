@@ -4,23 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="loggers.xml"/>
+
     <bean id="client" class="com.agapovp.epam.spring.core.Client">
         <constructor-arg value="1" />
         <constructor-arg value="John Smith"/>
-    </bean>
-
-    <bean id="consoleEventLogger" class="com.agapovp.epam.spring.core.ConsoleEventLogger"/>
-
-    <bean id="fileEventLogger" class="com.agapovp.epam.spring.core.FileEventLogger"
-          init-method="init">
-        <constructor-arg value="src\main\resources\app.log"/>
-    </bean>
-
-    <bean id="cacheFileEventLogger" class="com.agapovp.epam.spring.core.CacheFileEventLogger"
-          init-method="init"
-          destroy-method="destroy">
-        <constructor-arg value="src\main\resources\app.log"/>
-        <constructor-arg value="3"/>
     </bean>
 
     <bean id="app" class="com.agapovp.epam.spring.core.App">
