@@ -4,10 +4,15 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.util.Date;
 
+@Component
+@Scope("prototype")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Event {
 
@@ -19,6 +24,7 @@ public class Event {
     Date date;
     DateFormat dateFormat;
 
+    @Autowired
     public Event(Date date, DateFormat dateFormat) {
 
         id = ++count;
@@ -28,6 +34,7 @@ public class Event {
 
     @Override
     public String toString() {
+
         return String.format("#%d: %s : %s", id, dateFormat.format(date), message);
     }
 }

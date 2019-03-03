@@ -1,16 +1,23 @@
 package com.agapovp.epam.spring.core;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import java.util.Collection;
+import java.util.List;
 
-@AllArgsConstructor
+@Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CombinedEventLogger implements EventLogger {
 
-    Collection<EventLogger> loggers;
+    List<EventLogger> loggers;
+
+    @Autowired
+    public CombinedEventLogger(@Qualifier("LoggerList") List<EventLogger> loggers) {
+        this.loggers = loggers;
+    }
 
     @Override
     public void logEvent(Event event) {

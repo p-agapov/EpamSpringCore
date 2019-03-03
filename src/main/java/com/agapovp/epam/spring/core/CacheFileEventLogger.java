@@ -2,17 +2,24 @@ package com.agapovp.epam.spring.core;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("cacheFileEventLogger")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@PropertySource("classpath:loggers.properties")
 public class CacheFileEventLogger extends FileEventLogger {
 
     int cacheSize;
     List<Event> cache = new ArrayList<>();
 
-    public CacheFileEventLogger(String fileName, int cacheSize) {
+    public CacheFileEventLogger(@Value("${filepath}") String fileName,
+                                @Value("${cachesize}") int cacheSize) {
         super(fileName);
         this.cacheSize = cacheSize;
     }
@@ -30,6 +37,7 @@ public class CacheFileEventLogger extends FileEventLogger {
         }
     }
 
+    @PreDestroy
     private void destroy() {
         if (!cache.isEmpty()) {
             for (Event e : cache) {

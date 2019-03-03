@@ -1,21 +1,31 @@
 package com.agapovp.epam.spring.core;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-@AllArgsConstructor
+@Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@PropertySource("classpath:loggers.properties")
 public class FileEventLogger implements EventLogger {
 
     String fileName;
 
+    FileEventLogger(@Value("${filepath}") String fileName) {
+
+        this.fileName = fileName;
+    }
+
+    @PostConstruct
     private void init() throws IOException {
 
         File file = new File(fileName);
