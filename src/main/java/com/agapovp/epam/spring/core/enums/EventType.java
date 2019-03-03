@@ -1,4 +1,4 @@
-package com.agapovp.epam.spring.core;
+package com.agapovp.epam.spring.core.enums;
 
 public enum EventType {
     INFO,

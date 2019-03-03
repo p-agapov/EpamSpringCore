@@ -1,5 +1,6 @@
-package com.agapovp.epam.spring.core;
+package com.agapovp.epam.spring.core.loggers;
 
+import com.agapovp.epam.spring.core.configs.AppConfig.Event;
 import lombok.AccessLevel;
 import lombok.Cleanup;
 import lombok.SneakyThrows;

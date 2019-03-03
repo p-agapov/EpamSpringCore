@@ -1,5 +1,6 @@
-package com.agapovp.epam.spring.core;
+package com.agapovp.epam.spring.core.loggers;
 
+import com.agapovp.epam.spring.core.configs.AppConfig.Event;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class CombinedEventLogger implements EventLogger {
     List<EventLogger> loggers;
 
     @Autowired
-    public CombinedEventLogger(@Qualifier("LoggerList") List<EventLogger> loggers) {
+    public CombinedEventLogger(@Qualifier("loggerList") List<EventLogger> loggers) {
         this.loggers = loggers;
     }
 

@@ -1,5 +1,6 @@
-package com.agapovp.epam.spring.core;
+package com.agapovp.epam.spring.core.loggers;
 
+import com.agapovp.epam.spring.core.configs.AppConfig.Event;
 import org.springframework.stereotype.Component;
 
 @Component

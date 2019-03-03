@@ -1,5 +1,10 @@
 package com.agapovp.epam.spring.core;
 
+import com.agapovp.epam.spring.core.configs.AppConfig;
+import com.agapovp.epam.spring.core.configs.AppConfig.Event;
+import com.agapovp.epam.spring.core.configs.AppConfig.Client;
+import com.agapovp.epam.spring.core.enums.EventType;
+import com.agapovp.epam.spring.core.loggers.EventLogger;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-import static com.agapovp.epam.spring.core.EventType.INFO;
-import static com.agapovp.epam.spring.core.EventType.ERROR;
+import static com.agapovp.epam.spring.core.enums.EventType.INFO;
+import static com.agapovp.epam.spring.core.enums.EventType.ERROR;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
