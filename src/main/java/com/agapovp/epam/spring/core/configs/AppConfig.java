@@ -31,7 +31,7 @@ public class AppConfig {
     }
 
     @Bean
-    @Lazy
+    @Scope("prototype")
     Event event(Date date,
                 DateFormat dateFormat) {
 
@@ -97,7 +97,6 @@ public class AppConfig {
         }
     }
 
-    @Scope("prototype")
     @FieldDefaults(level = AccessLevel.PRIVATE)
     public static class Event {
 
